@@ -190,7 +190,7 @@ bar {
 }
 
 
-exec xinput set-prop "SynPS/2 Synaptics TouchPad" "libinput Tapping Enabled" 1
+exec xinput set-prop "ASUE140D:00 04F3:31B9 Touchpad" "libinput Tapping Enabled" 1
 exec xinput set-prop "ASUE140D:00 04F3:31B9 Touchpad" "libinput Natural Scrolling Enabled" 1
 
 bindsym $mod+Right exec ~/.config/i3/workspace-switcher.sh next
