@@ -26,6 +26,11 @@ exec --no-startup-id dex --autostart --environment i3
 # The combination of xss-lock, nm-applet and pactl is a popular choice, so
 # they are included here as an example. Modify as you see fit.
 
+bar {
+         tray_output primary
+         status_command i3status
+}
+
 # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
 # screen before suspend. Use loginctl lock-session to lock your screen.
 exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
@@ -33,6 +38,7 @@ exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
 exec --no-startup-id nm-applet
+
 
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
@@ -49,13 +55,13 @@ floating_modifier $mod
 tiling_drag modifier titlebar
 
 # start a terminal
-bindsym $mod+t exec kitty
+bindsym $mod+t exec alacritty
 
 # kill focused window
 bindsym $alt+F4 kill
 
 # start dmenu (a program launcher)
-bindsym $mod+Return exec rofi -show run
+bindsym $mod+Return exec rofi -show drun -modi drun
 # A more modern dmenu replacement is rofi:
 # bindcode $mod+40 exec "rofi -modi drun,run -show drun"
 # There also is i3-dmenu-desktop which only displays applications shipping a
@@ -183,23 +189,20 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-# Start i3bar to display a workspace bar (plus the system information i3status
-# finds out, if available)
-bar {
-        status_command i3status
-}
 
 
-exec xinput set-prop "ASUE140D:00 04F3:31B9 Touchpad" "libinput Tapping Enabled" 1
-exec xinput set-prop "ASUE140D:00 04F3:31B9 Touchpad" "libinput Natural Scrolling Enabled" 1
+#interactive screenshot by pressing printscreen
+bindsym Print exec gnome-screenshot -i 
 
-bindsym $mod+Right exec ~/.config/i3/workspace-switcher.sh next
-bindsym $mod+Left exec ~/.config/i3/workspace-switcher.sh prev
+exec --no-startup-id xinput set-prop "ASUE140D:00 04F3:31B9 Touchpad" "libinput Tapping Enabled" 1
+exec --no-startup-id xinput set-prop "ASUE140D:00 04F3:31B9 Touchpad" "libinput Natural Scrolling Enabled" 1
+
+bindsym $mod+Right exec --no-startup-id ~/.config/i3/workspace-switcher.sh next
+bindsym $mod+Left exec --no-startup-id ~/.config/i3/workspace-switcher.sh prev
 
 
-bindsym $mod+Shift+Right exec ~/.config/i3/workspace-switcher.sh next move
-bindsym $mod+Shift+Left exec ~/.config/i3/workspace-switcher.sh prev move
-
+bindsym $mod+Shift+Right exec --no-startup-id ~/.config/i3/workspace-switcher.sh next move
+bindsym $mod+Shift+Left exec --no-startup-id ~/.config/i3/workspace-switcher.sh prev move
 
 default_border pixel 0
 for_window [all] border pixel 0
@@ -207,3 +210,23 @@ for_window [all] border pixel 0
 bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl set +1%
 bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl set 1%-
 
+exec --no-startup-id ~/.config/i3/i3-natural-scrolling-and-tap/inverse-scroll.sh
+exec --no-startup-id ~/.config/i3/i3-natural-scrolling-and-tap/inverse-scroll.sh 
+
+exec --no-startup-id xrandr --output HDMI-1 --left-of eDP-1 --mode 1360x768
+
+exec --no-startup-id nitrogen --restore 
+
+workspace 0 output HDMI-1 eDP-1
+workspace 1 output eDP-1
+workspace 2 output eDP-1
+workspace 3 output eDP-1
+workspace 4 output eDP-1
+workspace 5 output eDP-1
+workspace 6 output eDP-1
+workspace 7 output eDP-1
+workspace 8 output eDP-1
+workspace 9 output eDP-1
+workspace 10 output eDP-1
+
+for_window [title="glfw"] floating enable
